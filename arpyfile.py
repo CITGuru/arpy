@@ -1,3 +1,5 @@
-from subprocess import Popen, PIPE
+import arpy
 
-Popen("git commit -m \"updates\"")
+arpy.task(
+    "kivy", "python main.py", "importaio.kv",
+)

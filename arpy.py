@@ -30,8 +30,4 @@ def log(color, string):
 def task(name, command, path, sleeptime=2, ignorelist=None, watchlist="*"):
     log("blue", "starting {} ...".format(name))
     monitor(command, path=path, action="restart", sleeptime=2, ignorelist=None)
-    
-    pass
 
-
-task("git", command=["git add .", "git commit -m 'updates'"], path=".", sleeptime=2)
