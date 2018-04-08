@@ -45,4 +45,4 @@ Its open source, you can contribute on it. You can contact me here: http://faceb
 
 # Author
 
-Oyetoke Toby - A Freelancer on !["http://fiverr.com/oyetoketobi","Fiverr"], C#, Python, Javascript, Kivy lover.
+Oyetoke Toby - A Freelancer on http://fiverr.com/oyetoketobi, C#, Python, Javascript, Kivy lover.
