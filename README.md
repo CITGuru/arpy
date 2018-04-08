@@ -22,9 +22,15 @@ arpy.task(
 ```
 ## In command line 
 
-In case you want to use its command line features, add the arpy directory to your system path.Then do
+In case you want to use its command line features, add the arpy directory to your system path.
+
+``` arpy.py [-h] [-p PATH] [-a ACTION] [-f SECONDS] [-i IGNORELIST] [-s SECONDS] command```
+
+You can do
 
 ```aryp.py -p path/to/dir -s 2 git add .```
+
+
 
 # Contribution
 

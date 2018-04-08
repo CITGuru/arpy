@@ -26,26 +26,41 @@ def log(color, string):
 
 
 class RestartHandler(FileSystemEventHandler):
-    def __init__(self, command, path, ignorelist, sleeptime, **kwargs):
+    def __init__(self, command, path, ignorelist, sleeptime, cmd_line, **kwargs):
         super(RestartHandler, self).__init__(**kwargs)
         self.command = command
         self.ignorelist = ignorelist
+        self.cmd_line = cmd_line
         self.sleep = sleeptime
         self.start()
 
     def stop(self):
-        self._process.terminate()
+        try:
+            self._process.terminate()
+        except:
+            pass
         log('red', 'TERMINATED')
 
     def start(self):
         self._last_restart = time()
-        if isinstance(self.command, list):
+        if type(self.command) == list and self.cmd_line:
             for com in self.command:
-                self._process = Popen(com)
+                try:
+                    self._process = Popen(com)
+                except Exception as e:
+                    log("red", "ERROR in running the command %s. Exception: %s" % (com, e))
+
                 log('green', 'STARTED %s' % self._process)
         else:
-            self._process = Popen(self.command)
+            try:
+                self._process = Popen(self.command)
+            except Exception as e:
+                log("red", "ERROR in running the command : %s. Exception: %s" % (self.command, e))
+        
+        try:
             log('green', 'STARTED %s' % self._process)
+        except:
+            pass
 
         
     def on_any_event(self, event):
@@ -66,11 +81,11 @@ class RestartHandler(FileSystemEventHandler):
         self.start()
 
 
-def monitor(command, path, action="restart", sleeptime, ignorelist=None):
-        if action == 'restart':
+def monitor(command, path, action, sleeptime, ignorelist=None, cmd_line=None):
+        if action == 'run':
             ev = RestartHandler(command, path=path,
                                 sleeptime=sleeptime,
-                                ignorelist=ignorelist)
+                                ignorelist=ignorelist, cmd_line=cmd_line)
         else:
             raise NotImplementedError('action %s not implemented' % action)
 

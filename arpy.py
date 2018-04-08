@@ -23,7 +23,9 @@ def log(color, string):
 
 def task(name, command, path, sleeptime=2, ignorelist=None, watchlist="*"):
     log("blue", "starting {} ...".format(name))
-    monitor(command, path=path, action="restart", sleeptime=2, ignorelist=None)
+    monitor(command, path=path, action="run", sleeptime=2, ignorelist=ignorelist)
+    log("blue", "task {} ran".format(name))
+    
 
 
 
@@ -43,13 +45,18 @@ if __name__ == '__main__':
     ''')
     parser.add_argument('-p', '--path', type=str, default='.',
                         help='set the path to monitor for changes')
+
+    parser.add_argument('-a', '--action', type=str, default='run',
+                    help='what action to perform when changes are detected')        
+
     parser.add_argument('-i', '--ignorelist', type=str, default='', nargs='*',
                         help='files to ignore')
+                        
     parser.add_argument('-s', '--sleep', type=int, default=0,
                         help='ignore events for n seconds after the last restart')
     parser.add_argument('command', type=str, nargs=REMAINDER)
 
     args = parser.parse_args()
     log('blue', str(args))
-    monitor(args.command, args.path, args.sleep,
-            args.ignorelist)
+    monitor(args.command, args.path, args.action, args.sleep,
+            args.ignorelist, cmd_line=True)
