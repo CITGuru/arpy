@@ -59,21 +59,26 @@ class RestartHandler(FileSystemEventHandler):
 
     def start(self):
         self._last_restart = time()
-        
-        self._process = Popen(self.command)
-        log('green', 'STARTED %s' % self._process)
+        if isinstance(self.command, list):
+            for com in self.command:
+                self._process = Popen(com)
+                log('green', 'STARTED %s' % self._process)
+        else:
+            self._process = Popen(self.command)
+            log('green', 'STARTED %s' % self._process)
 
         
     def on_any_event(self, event):
         if self.sleep and time() < self._last_restart + self.sleep:
             return
-
-        for i in self.ignorelist:
-            r = re.compile('^' + i.replace('*', '.*') + '$')
-            if r.match(event.src_path):
-                return
-            if isinstance(event, FileMovedEvent) and r.match(event.dest_path):
-                return
+        
+        if self.ignorelist:
+            for i in self.ignorelist:
+                r = re.compile('^' + i.replace('*', '.*') + '$')
+                if r.match(event.src_path):
+                    return
+                if isinstance(event, FileMovedEvent) and r.match(event.dest_path):
+                    return
 
         log('blue', '%s RESTARTING' % event)
 

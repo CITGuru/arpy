@@ -1,3 +1,3 @@
 from subprocess import Popen, PIPE
 
-Popen("git add . ")
+Popen("git commit -m \"updates\"")
