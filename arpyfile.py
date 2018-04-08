@@ -1,5 +1,5 @@
 import arpy
 
 arpy.task(
-    "kivy", "python main.py", "importaio.kv",
+    "push", ["git add .", "git commit -m 'updates'", "git push origin master"], ".",
 )

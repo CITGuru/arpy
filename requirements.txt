@@ -1,0 +1,4 @@
+six
+colorama
+termcolor
+watchdog
