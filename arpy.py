@@ -1,12 +1,6 @@
-import os
-import sys
-from subprocess import Popen, PIPE
 from argparse import ArgumentParser, REMAINDER
-from time import time, sleep
-import re
 import six
-from utils import RestartHandler, monitor
-
+from utils import monitor
 
 try:
     import colorama
@@ -31,3 +25,31 @@ def task(name, command, path, sleeptime=2, ignorelist=None, watchlist="*"):
     log("blue", "starting {} ...".format(name))
     monitor(command, path=path, action="restart", sleeptime=2, ignorelist=None)
 
+
+
+def watch():
+    pass
+
+if __name__ == '__main__':
+    
+    parser = ArgumentParser(description='''
+    Allows to start a program, and to monitor changes in a folder, when changes are
+    detected in the folder, the command is restarted.
+
+    This can be useful to test a software you are developping and having immediate
+    feedback.
+    Or to restart a daemon when configuration or data changes.
+    Or any other use, the sky is the limit :)
+    ''')
+    parser.add_argument('-p', '--path', type=str, default='.',
+                        help='set the path to monitor for changes')
+    parser.add_argument('-i', '--ignorelist', type=str, default='', nargs='*',
+                        help='files to ignore')
+    parser.add_argument('-s', '--sleep', type=int, default=0,
+                        help='ignore events for n seconds after the last restart')
+    parser.add_argument('command', type=str, nargs=REMAINDER)
+
+    args = parser.parse_args()
+    log('blue', str(args))
+    monitor(args.command, args.path, args.sleep,
+            args.ignorelist)

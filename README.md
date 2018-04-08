@@ -8,7 +8,8 @@ Its currently in development stage, but you can still try it out.
 
 1. Clone this repo - https://github.com/CITGuru/arpy.git
 2. Head into the arpy directory and do pip install -r `requirements.txt`
-3. Then add the arpy directory to your system path
+3. Then add the arpy core files into the path you are importing it. `arpy.py` and `utils.py`
+
 
 #Usage
 
