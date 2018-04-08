@@ -22,6 +22,8 @@ arpy.task(
 ```
 ## In command line 
 
+### Usage 
+
 In case you want to use its command line features, add the arpy directory to your system path.
 
 ``` arpy.py [-h] [-p PATH] [-a ACTION] [-f SECONDS] [-i IGNORELIST] [-s SECONDS] command```
