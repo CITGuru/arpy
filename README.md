@@ -28,7 +28,7 @@ In case you want to use its command line features, add the arpy directory to you
 
 You can do
 
-```aryp.py -p path/to/dir -s 2 git add .```
+```aryp.py -p path/to/dir -s 2 -a run git add .```
 
 
 
