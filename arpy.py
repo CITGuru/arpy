@@ -1,5 +1,6 @@
 from argparse import ArgumentParser, REMAINDER
 import six
+import sys
 from utils import monitor
 
 try:
@@ -40,8 +41,6 @@ if __name__ == '__main__':
 
     This can be useful to test a software you are developping and having immediate
     feedback.
-    Or to restart a daemon when configuration or data changes.
-    Or any other use, the sky is the limit :)
     ''')
     parser.add_argument('-p', '--path', type=str, default='.',
                         help='set the path to monitor for changes')
@@ -55,6 +54,10 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--sleep', type=int, default=0,
                         help='ignore events for n seconds after the last restart')
     parser.add_argument('command', type=str, nargs=REMAINDER)
+
+    if len(sys.argv) == 1:
+        parser.print_help(sys.stderr)
+        sys.exit(1)
 
     args = parser.parse_args()
     log('blue', str(args))
