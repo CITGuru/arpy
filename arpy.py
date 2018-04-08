@@ -34,4 +34,4 @@ def task(name, command, path, sleeptime=2, ignorelist=None, watchlist="*"):
     pass
 
 
-task("sass", "git add . && git commit -m \"updates\"", ".", sleeptime=2)
+task("git", "git add . && git commit -m \"updates\"", ".", sleeptime=2)
