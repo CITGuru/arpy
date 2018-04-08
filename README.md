@@ -1,6 +1,6 @@
 # Arpy - Auto Reload Python
 
-This is a simple tool that helps you automatically run task whenever there is an event in path specified. For instance, if you want to see an immediate results whenever you are developing, you can easily use this to run a command whenever you save the file.
+This is a simple tool that helps you automatically run task whenever there is an event in path specified. For instance, if you want to see an immediate results whenever you are developing, you can easily use this to run a command whenever you save the file. Influence by Gulp. Gulp is my favorite build system tooling
 
 # Installation
 
@@ -37,6 +37,11 @@ You can do
 # Contribution
 
 Its open source, you can contribute on it. You can contact me here: http://facebook.com/oyetoke.tobi
+
+# Todo
+1. Ability to run python functions 
+2. Abilty to set event e.g arpy.task("push", command="git push", path=".", on="save")
+3. Add watch capability
 
 # Author
 
