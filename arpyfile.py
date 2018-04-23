@@ -1,6 +1,6 @@
 import arpy
-from subprocess import Popen
+# from subprocess import Popen
 # auto push to git
-# arpy.task("echo", ["echo ran"], path=".", ignorelist=[".pyc"])
+arpy.task("push", ["git add .", "git commit -m 'updates'", "git push origin master"], ".", ignorelist=[".git"])
 
-Popen(["echo", "ran", "gate"])
+
