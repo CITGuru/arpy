@@ -1,34 +1,12 @@
 from argparse import ArgumentParser, REMAINDER
-import six
 import sys
-from utils import monitor
-
-try:
-    import colorama
-    colorama.init()
-except ImportError:
-    colorama = None
-
-try:
-    from termcolor import colored
-except ImportError:
-    colored = None
-
-
-def log(color, string):
-    if colored:
-        six.print_(colored(string, color))
-    else:
-        six.print_(string)
-
+from utils import monitor, log
 
 def task(name, command, path, sleeptime=2, ignorelist=None, watchlist="*"):
     log("blue", "starting {} ...".format(name))
     monitor(command, path=path, action="run", sleeptime=2, ignorelist=ignorelist)
     log("blue", "task {} ran".format(name))
     
-
-
 
 def watch():
     pass

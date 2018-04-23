@@ -25,9 +25,13 @@ def log(color, string):
         six.print_(string)
 
 
-class RestartHandler(FileSystemEventHandler):
+class WatchHandler(FileSystemEventHandler):
+    """
+    Watch file event system
+    """
+    
     def __init__(self, command, path, ignorelist, sleeptime, cmd_line, **kwargs):
-        super(RestartHandler, self).__init__(**kwargs)
+        super(WatchHandler, self).__init__(**kwargs)
         self.command = command
         self.ignorelist = ignorelist
         self.cmd_line = cmd_line
@@ -43,25 +47,32 @@ class RestartHandler(FileSystemEventHandler):
 
     def start(self):
         self._last_restart = time()
-        if type(self.command) == list and self.cmd_line:
-            for com in self.command:
-                try:
-                    self._process = Popen(com)
-                except Exception as e:
-                    log("red", "ERROR in running the command %s. Exception: %s" % (com, e))
-
-                log('green', 'STARTED %s' % self._process)
-        else:
+        if isinstance(self.command, str):
             try:
                 self._process = Popen(self.command)
             except Exception as e:
                 log("red", "ERROR in running the command : %s. Exception: %s" % (self.command, e))
+        elif isinstance(self.command, list):
+            if self.cmd_line:
+                try:
+                    self._process = Popen(self.command)
+                except Exception as e:
+                    log("red", "ERROR in running the command : %s. Exception: %s" % (self.command, e))
+            else:
+                for com in self.command:
+                    try:
+                        self._process = Popen(com)
+                    except Exception as e:
+                        log("red", "ERROR in running the command %s. Exception: %s" % (com, e))
+
         
+                print("From the file")
+
         try:
             log('green', 'STARTED %s' % self._process)
         except:
-            pass
-
+            log("red", "ERROR in running the command %s. Exception: %s" % (com, e))
+            
         
     def on_any_event(self, event):
         if self.sleep and time() < self._last_restart + self.sleep:
@@ -81,9 +92,9 @@ class RestartHandler(FileSystemEventHandler):
         self.start()
 
 
-def monitor(command, path, action, sleeptime, ignorelist=None, cmd_line=None):
+def monitor(command, path, action, sleeptime, ignorelist=None, cmd_line=False):
         if action == 'run':
-            ev = RestartHandler(command, path=path,
+            ev = WatchHandler(command, path=path,
                                 sleeptime=sleeptime,
                                 ignorelist=ignorelist, cmd_line=cmd_line)
         else:
