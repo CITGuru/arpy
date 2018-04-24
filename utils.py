@@ -71,7 +71,7 @@ class WatchHandler(FileSystemEventHandler):
         try:
             log('green', 'STARTED %s' % self._process)
         except:
-            log("red", "ERROR in running the command %s. Exception: %s" % (com, e))
+            log("red", "ERROR in running the command %s. Exception: %s" % (self.command, e))
             
         
     def on_any_event(self, event):
